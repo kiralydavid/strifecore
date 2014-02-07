@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan(basePackages = {
-        "com.strifecore.core.service"
+        "com.strifecore.core.service",
+        "com.strifecore.core.dao"
 })
 @Import({
         Migration.class,
