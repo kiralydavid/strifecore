@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <spring.version>4.0.0.RELEASE</spring.version>
+        <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <hibernate.version>4.2.8.Final</hibernate.version>
         <postgresql.jdbc.version>9.1-901.jdbc4</postgresql.jdbc.version>
         <hsqldb.jdbc.version>2.3.1</hsqldb.jdbc.version>
@@ -44,6 +45,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

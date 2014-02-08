@@ -1,13 +1,16 @@
 package com.strifecore.core.dao;
 
 import com.strifecore.core.BaseTest;
+import com.strifecore.core.TestEntityFactory;
 import com.strifecore.core.domain.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class UserDaoTest extends BaseTest {
 
@@ -18,12 +21,7 @@ public class UserDaoTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        user = new User();
-        user.setName("TestUser");
-        user.setEmail("test@test.com");
-        user.setPassword("1234567890");
-        user.setActive(true);
-        user.setAdmin(false);
+        user = TestEntityFactory.getUser();
     }
 
     @Test
@@ -33,11 +31,7 @@ public class UserDaoTest extends BaseTest {
         User userFromDb = userDao.read(userId);
 
         assertNotNull(userFromDb);
-        assertEquals(user.getName(), userFromDb.getName());
-        assertEquals(user.getEmail(), userFromDb.getEmail());
-        assertEquals(user.getPassword(), userFromDb.getPassword());
-        assertEquals(user.isActive(), userFromDb.isActive());
-        assertEquals(user.isAdmin(), userFromDb.isAdmin());
+        assertTrue(new ReflectionEquals(user).matches(userFromDb));
     }
 
     @Test
@@ -47,10 +41,24 @@ public class UserDaoTest extends BaseTest {
         User userFromDb = (User)sessionFactory.getCurrentSession().get(User.class, userId);
 
         assertNotNull(userFromDb);
-        assertEquals(user.getName(), userFromDb.getName());
-        assertEquals(user.getEmail(), userFromDb.getEmail());
-        assertEquals(user.getPassword(), userFromDb.getPassword());
-        assertEquals(user.isActive(), userFromDb.isActive());
-        assertEquals(user.isAdmin(), userFromDb.isAdmin());
+        assertTrue(new ReflectionEquals(user).matches(userFromDb));
+    }
+
+    @Test
+    public void testGetByName() throws Exception {
+        Integer userId = (Integer)sessionFactory.getCurrentSession().save(user);
+
+        User userFromDb = userDao.getByName(user.getName());
+
+        assertTrue(new ReflectionEquals(user).matches(userFromDb));
+    }
+
+    @Test
+    public void testGetByWrongName() throws Exception {
+        Integer userId = (Integer)sessionFactory.getCurrentSession().save(user);
+
+        User userFromDb = userDao.getByName("WrongUsername");
+
+        assertNull(userFromDb);
     }
 }

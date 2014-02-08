@@ -8,4 +8,6 @@ public interface UserDao {
 
     public Integer create(User user);
 
+    public User getByName(String name);
+
 }
