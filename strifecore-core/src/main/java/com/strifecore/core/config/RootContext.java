@@ -1,11 +1,10 @@
 package com.strifecore.core.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Calendar;
 
 @Configuration
 @ComponentScan(basePackages = {
@@ -26,4 +25,9 @@ public class RootContext {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
+    @Bean
+    @Scope("prototype")
+    public Calendar calendar() {
+        return Calendar.getInstance();
+    }
 }

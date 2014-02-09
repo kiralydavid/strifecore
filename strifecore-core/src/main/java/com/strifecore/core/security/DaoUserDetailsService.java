@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DaoUserDetailsService implements UserDetailsService {
@@ -14,6 +15,7 @@ public class DaoUserDetailsService implements UserDetailsService {
     private UserDao userDao;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         UserDetails userDetails = userDao.getByName(s);
