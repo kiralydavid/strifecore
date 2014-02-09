@@ -2,10 +2,9 @@ package com.strifecore.core.security;
 
 import com.strifecore.core.BaseTest;
 import com.strifecore.core.domain.User;
+import com.strifecore.core.util.MockClock;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Calendar;
 
 import static org.junit.Assert.*;
 
@@ -15,15 +14,15 @@ public class TokenUtilsTest extends BaseTest {
 
     private User user;
 
-    private Calendar calendar;
+    private MockClock clock;
 
     @Before
     public void setUp() throws Exception {
 
-        calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(1391960630216L);
+        clock = new MockClock();
+        clock.setTime(1391960630216L);
 
-        tokenUtils = new TokenUtils("s3cr3t", calendar);
+        tokenUtils = new TokenUtils("s3cr3t", clock);
 
         user = testEntityFactory.getUser();
         user.setPassword("1234567890");
@@ -56,9 +55,10 @@ public class TokenUtilsTest extends BaseTest {
     @Test
      public void testValidateExpiredToken() throws Exception {
 
-        calendar.setTimeInMillis(1391960639216L);
+        clock.setTime(1391981138979L);
+        tokenUtils = new TokenUtils("s3cr3t", clock);
 
-        String token = tokenUtils.createToken(user, 1391960637216L);
+        String token = tokenUtils.createToken(user, 1391980337719L);
 
         assertFalse(tokenUtils.validateToken(token, user));
     }
@@ -66,7 +66,8 @@ public class TokenUtilsTest extends BaseTest {
     @Test
     public void testValidateTokenWithManipulatedExpire() throws Exception {
 
-        calendar.setTimeInMillis(1391960639216L);
+        clock.setTime(1391960639216L);
+        tokenUtils = new TokenUtils("s3cr3t", clock);
 
         String token = "TestUser:1391960640216:8afb0302ba0266e219e511eff80fa42d585170212991ee2470dd1f4d15b8951b";
 
@@ -76,7 +77,8 @@ public class TokenUtilsTest extends BaseTest {
     @Test
     public void testValidateTokenWithManipulatedUser() throws Exception {
 
-        calendar.setTimeInMillis(1391960639216L);
+        clock.setTime(1391960639216L);
+        tokenUtils = new TokenUtils("s3cr3t", clock);
 
         String token = "AnotherUser:1391960639216:8afb0302ba0266e219e511eff80fa42d585170212991ee2470dd1f4d15b8951b";
 

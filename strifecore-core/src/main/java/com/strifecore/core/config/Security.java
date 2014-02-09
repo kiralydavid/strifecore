@@ -2,6 +2,7 @@ package com.strifecore.core.config;
 
 import com.strifecore.core.security.SaltedBCryptPasswordEncoder;
 import com.strifecore.core.security.TokenUtils;
+import com.strifecore.core.util.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import java.util.Calendar;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,7 +32,7 @@ public class Security extends GlobalMethodSecurityConfiguration {
     private String tokenExpirationTime;
 
     @Autowired
-    private Calendar calendar;
+    private Clock clock;
 
     @Bean
     public SaltedBCryptPasswordEncoder passwordEncoder() {
@@ -53,7 +52,7 @@ public class Security extends GlobalMethodSecurityConfiguration {
 
     @Bean
     protected TokenUtils tokenUtils() {
-        return new TokenUtils(tokenSecret, calendar);
+        return new TokenUtils(tokenSecret, clock);
     }
 
     @Bean

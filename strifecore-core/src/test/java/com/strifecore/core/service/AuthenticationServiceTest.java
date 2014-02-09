@@ -5,6 +5,7 @@ import com.strifecore.core.domain.User;
 import com.strifecore.core.security.AuthenticationDto;
 import com.strifecore.core.security.TokenUtils;
 import com.strifecore.core.service.impl.AuthenticationServiceImpl;
+import com.strifecore.core.util.Clock;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,8 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import java.util.Calendar;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -36,7 +35,7 @@ public class AuthenticationServiceTest extends BaseTest {
     private AuthenticationManager authenticationManager;
 
     @Mock
-    private Calendar calendar;
+    private Clock clock;
 
     @InjectMocks
     private AuthenticationServiceImpl authenticationService;

@@ -3,6 +3,7 @@ package com.strifecore.core.service.impl;
 import com.strifecore.core.security.AuthenticationDto;
 import com.strifecore.core.security.TokenUtils;
 import com.strifecore.core.service.AuthenticationService;
+import com.strifecore.core.util.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Calendar;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -27,7 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private Calendar calendar;
+    private Clock clock;
 
     private Long tokenExpirationTime;
 
@@ -47,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authentication.getName());
 
-        String token = tokenUtils.createToken(userDetails, calendar.getTimeInMillis() + tokenExpirationTime);
+        String token = tokenUtils.createToken(userDetails, clock.getTimeInMillis() + tokenExpirationTime);
 
         return new AuthenticationDto(username, token);
     }

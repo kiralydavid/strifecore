@@ -1,23 +1,23 @@
 package com.strifecore.core.security;
 
+import com.strifecore.core.util.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
 
 public class TokenUtils {
 
-    private final Calendar CALENDAR;
+    private final Clock CLOCK;
 
     private final String TOKEN_SECRET_KEY;
 
     @Autowired
-    public TokenUtils(String tokenSecretKey, Calendar calendar) {
+    public TokenUtils(String tokenSecretKey, Clock clock) {
         this.TOKEN_SECRET_KEY = tokenSecretKey;
-        this.CALENDAR = calendar;
+        this.CLOCK = clock;
     }
 
     public String createToken(UserDetails userDetails, Long expires) {
@@ -56,7 +56,7 @@ public class TokenUtils {
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];
 
-        if (expires < CALENDAR.getTimeInMillis()) {
+        if (expires < CLOCK.getTimeInMillis()) {
             return false;
         }
 
