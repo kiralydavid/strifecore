@@ -20,4 +20,9 @@ public class HelloController {
         return testService.hello(name);
     }
 
+    @RequestMapping(value = "/{name}/secured", method = RequestMethod.GET)
+    public @ResponseBody String securedHello(@PathVariable String name){
+        return testService.securedHello(name);
+    }
+
 }

@@ -1,17 +1,23 @@
 package com.strifecore.core.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 public class TokenUtils {
 
+    private final Calendar CALENDAR;
+
     private final String TOKEN_SECRET_KEY;
 
-    public TokenUtils(String tokenSecretKey) {
+    @Autowired
+    public TokenUtils(String tokenSecretKey, Calendar calendar) {
         this.TOKEN_SECRET_KEY = tokenSecretKey;
+        this.CALENDAR = calendar;
     }
 
     public String createToken(UserDetails userDetails, Long expires) {
@@ -45,4 +51,25 @@ public class TokenUtils {
         return new String(Hex.encode(digest.digest(signatureBuilder.toString().getBytes())));
     }
 
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        String[] parts = token.split(":");
+        long expires = Long.parseLong(parts[1]);
+        String signature = parts[2];
+
+        if (expires < CALENDAR.getTimeInMillis()) {
+            return false;
+        }
+
+        return signature.equals(computeSignature(userDetails, expires));
+    }
+
+    public String getUserNameFromToken(String authToken) {
+
+        if (null == authToken) {
+            return null;
+        }
+
+        String[] parts = authToken.split(":");
+        return parts[0];
+    }
 }

@@ -5,6 +5,9 @@ public class AuthenticationDto {
     private String name;
     private String token;
 
+    public AuthenticationDto() {
+    }
+
     public AuthenticationDto(String name, String token) {
         this.name = name;
         this.token = token;

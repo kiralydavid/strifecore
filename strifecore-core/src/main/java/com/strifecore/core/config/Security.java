@@ -1,6 +1,5 @@
 package com.strifecore.core.config;
 
-import com.strifecore.core.security.DaoUserDetailsService;
 import com.strifecore.core.security.SaltedBCryptPasswordEncoder;
 import com.strifecore.core.security.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.Calendar;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -19,7 +21,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 public class Security extends GlobalMethodSecurityConfiguration {
 
     @Autowired
-    private DaoUserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Value("${password.salt}")
     private String salt;
@@ -29,6 +31,9 @@ public class Security extends GlobalMethodSecurityConfiguration {
 
     @Value("${token.expiration}")
     private String tokenExpirationTime;
+
+    @Autowired
+    private Calendar calendar;
 
     @Bean
     public SaltedBCryptPasswordEncoder passwordEncoder() {
@@ -48,11 +53,16 @@ public class Security extends GlobalMethodSecurityConfiguration {
 
     @Bean
     protected TokenUtils tokenUtils() {
-        return new TokenUtils(tokenSecret);
+        return new TokenUtils(tokenSecret, calendar);
     }
 
     @Bean
     public Long tokenExpirationTime() {
          return Long.valueOf(tokenExpirationTime) * 60 * 1000;
+    }
+
+    @Bean
+    public String tokenSecret() {
+        return tokenSecret;
     }
 }
