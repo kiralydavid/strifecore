@@ -15,7 +15,6 @@ public class DaoUserDetailsService implements UserDetailsService {
     private UserDao userDao;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         UserDetails userDetails = userDao.getByName(s);
