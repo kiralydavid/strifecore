@@ -53,6 +53,6 @@ public class Security extends GlobalMethodSecurityConfiguration {
 
     @Bean
     public Long tokenExpirationTime() {
-         return Long.valueOf(tokenExpirationTime) * 60 * 60;
+         return Long.valueOf(tokenExpirationTime) * 60 * 1000;
     }
 }
