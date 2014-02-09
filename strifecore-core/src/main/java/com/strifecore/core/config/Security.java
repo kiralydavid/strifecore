@@ -23,6 +23,11 @@ public class Security extends GlobalMethodSecurityConfiguration {
     @Value("${password.salt}")
     private String salt;
 
+    @Bean
+    public SaltedBCryptPasswordEncoder passwordEncoder() {
+        return new SaltedBCryptPasswordEncoder(salt);
+    }
+
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -31,6 +36,6 @@ public class Security extends GlobalMethodSecurityConfiguration {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new SaltedBCryptPasswordEncoder(salt));
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }

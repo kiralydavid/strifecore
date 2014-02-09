@@ -21,4 +21,7 @@ public abstract class BaseTest extends AbstractTransactionalJUnit4SpringContextT
     @Autowired
     protected SessionFactory sessionFactory;
 
+    @Autowired
+    protected TestEntityFactory testEntityFactory;
+
 }

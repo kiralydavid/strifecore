@@ -1,7 +1,6 @@
 package com.strifecore.core.security;
 
 import com.strifecore.core.BaseTest;
-import com.strifecore.core.TestEntityFactory;
 import com.strifecore.core.dao.UserDao;
 import com.strifecore.core.domain.User;
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class DaoUserDetailsServiceTest extends BaseTest {
     @Before
     public void setUp() throws Exception {
 
-        user = TestEntityFactory.getUser();
+        user = testEntityFactory.getUser();
 
         MockitoAnnotations.initMocks(this);
 

@@ -1,7 +1,6 @@
 package com.strifecore.core.service;
 
 import com.strifecore.core.BaseTest;
-import com.strifecore.core.TestEntityFactory;
 import com.strifecore.core.domain.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -52,7 +51,7 @@ public class TestServiceTest extends BaseTest {
     @Test
     public void testSecuredHelloWithLogin() throws Exception {
 
-        User user = TestEntityFactory.getUser();
+        User user = testEntityFactory.getUser();
         user.setAdmin(true);
 
         sessionFactory.getCurrentSession().save(user);
@@ -65,7 +64,7 @@ public class TestServiceTest extends BaseTest {
     @Test(expected = AccessDeniedException.class)
     public void testSecuredHelloWithInsufficientPermission() throws Exception {
 
-        User user = TestEntityFactory.getUser();
+        User user = testEntityFactory.getUser();
 
         sessionFactory.getCurrentSession().save(user);
 
@@ -78,7 +77,7 @@ public class TestServiceTest extends BaseTest {
     @Test(expected = BadCredentialsException.class)
     public void testSecuredHelloWithWrongLogin() throws Exception {
 
-        User user = TestEntityFactory.getUser();
+        User user = testEntityFactory.getUser();
 
         sessionFactory.getCurrentSession().save(user);
 

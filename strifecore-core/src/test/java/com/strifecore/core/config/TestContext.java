@@ -1,5 +1,6 @@
 package com.strifecore.core.config;
 
+import com.strifecore.core.TestEntityFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,11 @@ public class TestContext {
         dataSource.setPassword(env.getProperty("db.password"));
 
         return dataSource;
+    }
+
+    @Bean
+    public TestEntityFactory testEntityFactory() {
+        return new TestEntityFactory();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.strifecore.core.dao;
 
 import com.strifecore.core.BaseTest;
-import com.strifecore.core.TestEntityFactory;
 import com.strifecore.core.domain.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ public class UserDaoTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        user = TestEntityFactory.getUser();
+        user = testEntityFactory.getUser();
     }
 
     @Test
