@@ -9,4 +9,9 @@ public class TestServiceImpl implements TestService {
     public String hello(String name) {
         return "Hello " + name + "!";
     }
+
+    @Override
+    public String securedHello(String name) {
+        return "SecuredHello " + name + "!";
+    }
 }

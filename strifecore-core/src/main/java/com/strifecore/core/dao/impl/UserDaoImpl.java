@@ -2,7 +2,6 @@ package com.strifecore.core.dao.impl;
 
 import com.strifecore.core.dao.UserDao;
 import com.strifecore.core.domain.User;
-import org.apache.maven.artifact.versioning.Restriction;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
