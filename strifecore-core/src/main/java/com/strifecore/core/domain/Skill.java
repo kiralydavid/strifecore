@@ -1,5 +1,7 @@
 package com.strifecore.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 import javax.persistence.*;
 
 @Entity
@@ -39,6 +41,23 @@ public class Skill implements Comparable<Skill> {
     @Override
     public int compareTo(Skill other) {
         return slot.value() - other.slot.value();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonUnwrapped
+    public AttributeMap getAttributes() {
+        return attributes;
+    }
+
+    public SkillSlot getSlot() {
+        return slot;
     }
 
     @Override

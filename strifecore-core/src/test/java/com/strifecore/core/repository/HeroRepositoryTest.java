@@ -59,7 +59,7 @@ public class HeroRepositoryTest extends BaseTest {
                 .addSkill(new SkillBuilder()
                         .setName("Quick Draw")
                         .setDescription("Target location to leap there, dealing 90/120/150 Magic damage to the nearest enemy. Prioritizes heroes.")
-                        .setSlot(SkillSlot.FIRST)
+                        .setSlot(SkillSlot.ULTI)
                         .addAttribute(AttributeName.MANA_COST, new ScalingAttribute(90D, 10D, 3))
                         .addAttribute(AttributeName.COOLDOWN, new StaticAttribute(40D))
                         .addAttribute(AttributeName.RANGE, new StaticAttribute(600D))

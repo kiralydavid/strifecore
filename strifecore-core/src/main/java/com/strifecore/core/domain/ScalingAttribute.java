@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class ScalingAttribute extends Attribute {
 
     @Column(name = "value")
-    private Double baseValue;
+    private Double value;
 
     @Column(name = "increase_per_level")
     private Double increasePerLevel;
@@ -19,10 +19,10 @@ public class ScalingAttribute extends Attribute {
 
     protected ScalingAttribute() {}
 
-    public ScalingAttribute(Double baseValue, Double increasePerLevel, Integer maxLevel) {
+    public ScalingAttribute(Double value, Double increasePerLevel, Integer maxLevel) {
         this.increasePerLevel = increasePerLevel;
         this.maxLevel = maxLevel;
-        this.baseValue = baseValue;
+        this.value = value;
     }
 
     @Override
@@ -30,6 +30,23 @@ public class ScalingAttribute extends Attribute {
         if( level < 1 || level > maxLevel ) {
             throw new IllegalArgumentException();
         }
-        return baseValue + level * increasePerLevel;
+        return value + level * increasePerLevel;
+    }
+
+    @Override
+    public Integer getType() {
+        return 2;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public Double getIncreasePerLevel() {
+        return increasePerLevel;
+    }
+
+    public Integer getMaxLevel() {
+        return maxLevel;
     }
 }

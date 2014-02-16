@@ -36,4 +36,8 @@ public class AttributeMap {
 
         return attributes.get(attributeType);
     }
+
+    public Map<AttributeName, Attribute> getAttributes() {
+        return attributes;
+    }
 }

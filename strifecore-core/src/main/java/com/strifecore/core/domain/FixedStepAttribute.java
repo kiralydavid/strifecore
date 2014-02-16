@@ -30,4 +30,13 @@ public class FixedStepAttribute extends Attribute {
         }
         return values.get(level - 1).getValue();
     }
+
+    @Override
+    public Integer getType() {
+        return 3;
+    }
+
+    public List<FixedStepAttributeValue> getValues() {
+        return values;
+    }
 }

@@ -19,4 +19,13 @@ public class StaticAttribute extends Attribute {
     public Double getValueOnLevel(Integer level) {
         return value;
     }
+
+    @Override
+    public Integer getType() {
+        return 1;
+    }
+
+    public Double getValue() {
+        return value;
+    }
 }

@@ -1,5 +1,6 @@
 package com.strifecore.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -19,6 +20,7 @@ public class Hero {
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "attribute_map")
+    @JsonUnwrapped
     private AttributeMap attributes;
 
     private String name;
@@ -33,6 +35,22 @@ public class Hero {
         this.name = name;
         this.attributes = attributes;
         this.skills = skills;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public AttributeMap getAttributes() {
+        return attributes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public SortedSet<Skill> getSkills() {
+        return skills;
     }
 
     @Override

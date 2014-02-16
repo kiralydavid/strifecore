@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class HeroRepositoryImpl implements HeroRepository {
@@ -15,13 +14,11 @@ public class HeroRepositoryImpl implements HeroRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
     @Override
     public Integer create(Hero hero) {
         return (Integer)sessionFactory.getCurrentSession().save(hero);
     }
 
-    @Transactional
     @Override
     public Hero read(Integer id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Hero.class);

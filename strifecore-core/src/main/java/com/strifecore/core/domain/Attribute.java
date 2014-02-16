@@ -1,5 +1,7 @@
 package com.strifecore.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,10 +17,18 @@ public abstract class Attribute {
     @Transient
     public abstract Double getValueOnLevel(Integer level);
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     public AttributeName name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "map")
     public AttributeMap map;
+
+    public AttributeName getName() {
+        return name;
+    }
+
+    public abstract Integer getType();
 }
