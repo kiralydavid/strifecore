@@ -14,17 +14,17 @@ public class GuideBuilderTest {
         Skill skill = new SkillBuilder()
                 .setName("Fire Lager")
                 .setDescription("Target direction to deal 70/90/110/130 Magic damage in a line. Line explodes after 0.9 seconds, dealing half damage.")
-                .addAttribute(SkillAttributes.MANA_COST, new FixedStepAttribute().addValue(70D).addValue(80D).addValue(90D).addValue(100D))
-                .addAttribute(SkillAttributes.COOLDOWN, new StaticAttribute(9D))
-                .addAttribute(SkillAttributes.RANGE, new StaticAttribute(650D))
-                .addAttribute(SkillAttributes.RADIUS, new StaticAttribute(180D))
+                .addAttribute(AttributeName.MANA_COST, new FixedStepAttribute().addValue(70D).addValue(80D).addValue(90D).addValue(100D))
+                .addAttribute(AttributeName.COOLDOWN, new StaticAttribute(9D))
+                .addAttribute(AttributeName.RANGE, new StaticAttribute(650D))
+                .addAttribute(AttributeName.RADIUS, new StaticAttribute(180D))
                 .setSlot(SkillSlot.FIRST)
                 .build();
 
         Hero hero = new HeroBuilder()
                 .setName("Caprice")
-                .addAttribute(HeroAttributes.ATTACK, new ScalingAttribute(54D, 2.485, 15))
-                .addAttribute(HeroAttributes.ATTACK_SPEED, new StaticAttribute(0.9))
+                .addAttribute(AttributeName.ATTACK, new ScalingAttribute(54D, 2.485, 15))
+                .addAttribute(AttributeName.ATTACK_SPEED, new StaticAttribute(0.9))
                 .addSkill(skill)
                 .build();
 
@@ -32,7 +32,7 @@ public class GuideBuilderTest {
                 .setName("Razer")
                 .addSkill(new SkillBuilder()
                     .setName("Into the Shadows")
-                    .addAttribute(SkillAttributes.COOLDOWN, new FixedStepAttribute().addValue(270D).addValue(180D).addValue(180D))
+                    .addAttribute(AttributeName.COOLDOWN, new FixedStepAttribute().addValue(270D).addValue(180D).addValue(180D))
                     .build()
                 )
                 .build();

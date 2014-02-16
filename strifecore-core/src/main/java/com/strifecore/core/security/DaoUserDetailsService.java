@@ -1,6 +1,6 @@
 package com.strifecore.core.security;
 
-import com.strifecore.core.dao.UserDao;
+import com.strifecore.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class DaoUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userDao;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

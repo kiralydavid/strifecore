@@ -1,7 +1,7 @@
-package com.strifecore.core.dao.impl;
+package com.strifecore.core.repository.impl;
 
-import com.strifecore.core.dao.UserDao;
 import com.strifecore.core.domain.User;
+import com.strifecore.core.repository.UserRepository;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private SessionFactory sessionFactory;

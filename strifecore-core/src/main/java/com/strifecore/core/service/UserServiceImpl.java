@@ -1,7 +1,7 @@
 package com.strifecore.core.service;
 
-import com.strifecore.core.dao.UserDao;
 import com.strifecore.core.domain.User;
+import com.strifecore.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userDao;
 
     @Override
     @Transactional

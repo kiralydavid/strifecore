@@ -5,11 +5,11 @@ import java.util.TreeSet;
 
 public class HeroBuilder {
     private String name;
-    private AttributeMap<HeroAttributes> attributes;
+    private AttributeMap attributes;
     private SortedSet<Skill> skills;
 
     public HeroBuilder() {
-        this.attributes = new AttributeMap<>();
+        this.attributes = new AttributeMap();
         this.skills = new TreeSet<>();
     }
 
@@ -18,7 +18,7 @@ public class HeroBuilder {
         return this;
     }
 
-    public HeroBuilder addAttribute(HeroAttributes type, Attribute attribute) {
+    public HeroBuilder addAttribute(AttributeName type, Attribute attribute) {
         attributes.addAttribute(type, attribute);
 
         return this;
@@ -31,6 +31,10 @@ public class HeroBuilder {
     }
 
     public Hero build() {
-        return new Hero(name, attributes, skills);
+        Hero hero = new Hero(name, attributes, skills);
+        for(Skill skill : skills) {
+            skill.setHero(hero);
+        }
+        return hero;
     }
 }

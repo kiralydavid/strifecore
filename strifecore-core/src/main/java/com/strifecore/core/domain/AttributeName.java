@@ -1,6 +1,6 @@
 package com.strifecore.core.domain;
 
-public enum HeroAttributes {
+public enum AttributeName {
 
     ATTACK_RANGE,
     ATTACK,
@@ -11,6 +11,10 @@ public enum HeroAttributes {
     HEALTH_REGEN,
     MOVEMENT_SPEED,
     ARMOR,
-    MAGIC_ARMOR
+    MAGIC_ARMOR,
+    MANA_COST,
+    COOLDOWN,
+    RANGE,
+    RADIUS
 
 }

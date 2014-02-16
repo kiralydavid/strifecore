@@ -1,8 +1,8 @@
-package com.strifecore.core.dao;
+package com.strifecore.core.repository;
 
 import com.strifecore.core.domain.User;
 
-public interface UserDao {
+public interface UserRepository {
 
     public User read(Integer id);
 

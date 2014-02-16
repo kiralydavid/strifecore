@@ -1,4 +1,4 @@
-package com.strifecore.core.dao;
+package com.strifecore.core.repository;
 
 import com.strifecore.core.BaseTest;
 import com.strifecore.core.domain.User;
@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
-public class UserDaoTest extends BaseTest {
+public class UserRepositoryTest extends BaseTest {
 
     private User user;
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userDao;
 
     @Before
     public void setUp() throws Exception {

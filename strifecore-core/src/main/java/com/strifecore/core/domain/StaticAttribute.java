@@ -1,8 +1,15 @@
 package com.strifecore.core.domain;
 
-public class StaticAttribute implements Attribute {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("1")
+public class StaticAttribute extends Attribute {
 
     private Double value;
+
+    protected StaticAttribute() {}
 
     public StaticAttribute(Double value) {
         this.value = value;

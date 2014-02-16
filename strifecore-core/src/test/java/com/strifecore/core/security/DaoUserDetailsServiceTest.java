@@ -1,8 +1,8 @@
 package com.strifecore.core.security;
 
 import com.strifecore.core.BaseTest;
-import com.strifecore.core.dao.UserDao;
 import com.strifecore.core.domain.User;
+import com.strifecore.core.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -20,7 +20,7 @@ public class DaoUserDetailsServiceTest extends BaseTest {
     private User user;
 
     @Mock
-    private UserDao userDao;
+    private UserRepository userDao;
 
     @InjectMocks
     private DaoUserDetailsService userDetailsService;

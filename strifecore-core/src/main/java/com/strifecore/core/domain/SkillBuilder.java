@@ -3,11 +3,11 @@ package com.strifecore.core.domain;
 public class SkillBuilder {
     private String name;
     private String description;
-    private AttributeMap<SkillAttributes> attributes;
+    private AttributeMap attributes;
     private SkillSlot slot;
 
     public SkillBuilder() {
-        this.attributes = new AttributeMap<>();
+        this.attributes = new AttributeMap();
     }
 
     public SkillBuilder setName(String name) {
@@ -20,7 +20,7 @@ public class SkillBuilder {
         return this;
     }
 
-    public SkillBuilder addAttribute(SkillAttributes type, Attribute attribute) {
+    public SkillBuilder addAttribute(AttributeName type, Attribute attribute) {
         this.attributes.addAttribute(type, attribute);
 
         return this;
