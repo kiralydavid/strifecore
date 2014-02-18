@@ -30,9 +30,6 @@ public class Hero {
     @Sort(type = SortType.NATURAL)
     private SortedSet<Skill> skills;
 
-    @OneToMany
-    private List<Guide> guides;
-
     protected Hero() {}
 
     public Hero(String name, AttributeMap attributes, SortedSet<Skill> skills) {
