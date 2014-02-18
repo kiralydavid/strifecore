@@ -1,22 +1,26 @@
-package com.strifecore.core.domain;
+package com.strifecore.core.repository;
 
+import com.strifecore.core.BaseTest;
+import com.strifecore.core.domain.*;
+import org.hibernate.Hibernate;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertThat;
-
-
-public class ItemTest {
+public class ItemRepositoryTest extends BaseTest {
 
     private Item item;
 
+    private Component mainComponent;
+    private Component firstComponent;
+    private Component secondComponent;
+
+    @Autowired
+    private ItemRepository repository;
+
     @Before
     public void setUp() throws Exception {
-
-        Component mainComponent = new ComponentBuilder()
+        mainComponent = new ComponentBuilder()
                 .setName("Empowered Bracer")
                 .setDevName("gauntlet")
                 .setCraftValue(2)
@@ -28,7 +32,7 @@ public class ItemTest {
                 .setImage("gauntlet.png")
                 .build();
 
-        Component firstComponent = new ComponentBuilder()
+        firstComponent = new ComponentBuilder()
                 .setName("Power Shard")
                 .setDevName("power_1")
                 .setCraftValue(1)
@@ -39,7 +43,7 @@ public class ItemTest {
                 .setImage("power_1.png")
                 .build();
 
-        Component secondComponent = new ComponentBuilder()
+        secondComponent = new ComponentBuilder()
                 .setName("Health Shard")
                 .setDevName("health_1")
                 .setCraftValue(1)
@@ -50,7 +54,6 @@ public class ItemTest {
                 .setImage("health_1.png")
                 .build();
 
-
         item = new ItemBuilder()
                 .setComponent(mainComponent)
                 .addSubcomponent(firstComponent)
@@ -59,13 +62,18 @@ public class ItemTest {
     }
 
     @Test
-    public void testGetBonuses() throws Exception {
+    public void testCreate() throws Exception {
 
-        List<Bonus> actualBonuses = item.getBonuses();
+        sessionFactory.getCurrentSession().save(mainComponent);
+        sessionFactory.getCurrentSession().save(firstComponent);
+        sessionFactory.getCurrentSession().save(secondComponent);
 
-        assertThat(actualBonuses, containsInAnyOrder(
-                new Bonus(BonusType.HEALTH, 195D),
-                new Bonus(BonusType.POWER, 13D)
-        ));
+        Integer id = repository.create(item);
+
+        sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().clear();
+
+        Item itemFromDb = repository.read(id);
+        Hibernate.initialize(itemFromDb);
     }
 }

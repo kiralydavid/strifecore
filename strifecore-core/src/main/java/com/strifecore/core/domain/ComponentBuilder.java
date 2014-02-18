@@ -4,19 +4,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ComponentBuilder {
-    private ComponentName name;
+    private String name;
+    private String devName;
     private Integer craftValue;
     private Integer price;
     private ItemType type;
     private String description;
     private List<Bonus> bonuses;
+    private String image;
 
     public ComponentBuilder() {
         this.bonuses = new LinkedList<>();
     }
 
-    public ComponentBuilder setName(ComponentName name) {
+    public ComponentBuilder setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public ComponentBuilder setDevName(String devName) {
+        this.devName = devName;
         return this;
     }
 
@@ -40,6 +47,11 @@ public class ComponentBuilder {
         return this;
     }
 
+    public ComponentBuilder setImage(String image) {
+        this.image = image;
+        return this;
+    }
+
     public ComponentBuilder addBonus(Bonus bonus) {
         this.bonuses.add(bonus);
 
@@ -47,6 +59,10 @@ public class ComponentBuilder {
     }
 
     public Component build() {
-        return new Component(name, craftValue, price, type, description, bonuses);
+        Component component = new Component(name, devName, craftValue, price, type, description, bonuses, image);
+        for(Bonus bonus : component.getBonuses()) {
+            bonus.setComponent(component);
+        }
+        return component;
     }
 }

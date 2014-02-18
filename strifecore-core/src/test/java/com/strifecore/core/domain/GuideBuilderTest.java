@@ -38,35 +38,40 @@ public class GuideBuilderTest {
                 .build();
 
         Component mainComponent = new ComponentBuilder()
-                .setName(new ComponentName("Empowered Bracer", "gauntlet"))
+                .setName("Empowered Bracer")
+                .setDevName("gauntlet")
                 .setCraftValue(2)
                 .setDescription("Description")
                 .setPrice(550)
                 .setType(ItemType.POWER)
                 .addBonus(new Bonus(BonusType.POWER, 7D))
                 .addBonus(new Bonus(BonusType.HEALTH, 110D))
+                .setImage("gauntlet.png")
                 .build();
 
         Component firstComponent = new ComponentBuilder()
-                .setName(new ComponentName("Power Shard", "power_1"))
+                .setName("Power Shard")
+                .setDevName("power_1")
                 .setCraftValue(1)
                 .setDescription("Description")
                 .setPrice(450)
                 .setType(ItemType.COMPONENT)
                 .addBonus(new Bonus(BonusType.POWER, 6D))
+                .setImage("power_1.png")
                 .build();
 
         Component secondComponent = new ComponentBuilder()
-                .setName(new ComponentName("Health Shard", "health_1"))
+                .setName("Health Shard")
+                .setDevName("health_1")
                 .setCraftValue(1)
                 .setDescription("Description")
                 .setPrice(450)
                 .setType(ItemType.COMPONENT)
                 .addBonus(new Bonus(BonusType.HEALTH, 85D))
+                .setImage("health_1.png")
                 .build();
 
         Item item = new ItemBuilder()
-                .setCrafter(author)
                 .setComponent(mainComponent)
                 .addSubcomponent(firstComponent)
                 .addSubcomponent(secondComponent)

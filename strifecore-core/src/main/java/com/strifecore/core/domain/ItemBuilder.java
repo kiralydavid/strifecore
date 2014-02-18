@@ -6,7 +6,6 @@ import java.util.List;
 public class ItemBuilder {
     private Component component;
     private List<Component> subcomponents;
-    private User crafter;
 
     public ItemBuilder() {
         this.subcomponents = new LinkedList<>();
@@ -22,12 +21,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setCrafter(User crafter) {
-        this.crafter = crafter;
-        return this;
-    }
-
     public Item build() {
-        return new Item(component, subcomponents, crafter);
+        return new Item(component, subcomponents);
     }
 }

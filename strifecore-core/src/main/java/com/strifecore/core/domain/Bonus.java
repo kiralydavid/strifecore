@@ -1,10 +1,24 @@
 package com.strifecore.core.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Bonus {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Enumerated(EnumType.STRING)
     private BonusType type;
 
     private Double amount;
+
+    @ManyToOne
+    @JoinColumn(name = "component")
+    private Component component;
+
+    protected Bonus(){}
 
     public Bonus(BonusType type, Double amount) {
         this.type = type;
@@ -17,6 +31,10 @@ public class Bonus {
 
     public Double getAmount() {
         return amount;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     @Override

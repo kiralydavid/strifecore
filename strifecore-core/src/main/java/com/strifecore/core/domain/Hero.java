@@ -5,6 +5,7 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.SortedSet;
 
 @Entity
@@ -28,6 +29,9 @@ public class Hero {
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "hero")
     @Sort(type = SortType.NATURAL)
     private SortedSet<Skill> skills;
+
+    @OneToMany
+    private List<Guide> guides;
 
     protected Hero() {}
 
