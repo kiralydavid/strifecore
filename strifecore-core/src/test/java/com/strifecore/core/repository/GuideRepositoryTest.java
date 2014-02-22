@@ -1,15 +1,29 @@
-package com.strifecore.core.domain;
+package com.strifecore.core.repository;
 
+import com.strifecore.core.BaseTest;
+import com.strifecore.core.domain.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
-public class GuideBuilderTest {
-    @Test
-    public void testBuild() throws Exception {
+public class GuideRepositoryTest extends BaseTest {
+    @Before
+    public void setUp() throws Exception {
 
+    }
+
+    @Test
+    public void testCreate() throws Exception {
         User author = new User();
         author.setName("TestUser");
+        author.setPassword("1234567890");
+        author.setEmail("test@test.com");
+        author.setActive(true);
+        author.setAdmin(false);
+        author.setId(1);
+
+        sessionFactory.getCurrentSession().save(author);
 
         Skill skill = new SkillBuilder()
                 .setName("Fire Lager")
@@ -28,15 +42,21 @@ public class GuideBuilderTest {
                 .addSkill(skill)
                 .build();
 
+        sessionFactory.getCurrentSession().save(hero);
+
+
         Pet pet = new PetBuilder()
                 .setName("Razer")
                 .addSkill(new SkillBuilder()
-                    .setName("Into the Shadows")
-                    .addAttribute(AttributeName.COOLDOWN, new FixedStepAttribute().addValue(270D).addValue(180D).addValue(180D))
-                    .setSlot(SkillSlot.FIRST)
-                    .build()
+                        .setName("Into the Shadows")
+                        .setDescription("Description")
+                        .addAttribute(AttributeName.COOLDOWN, new FixedStepAttribute().addValue(270D).addValue(180D).addValue(180D))
+                        .setSlot(SkillSlot.FIRST)
+                        .build()
                 )
                 .build();
+
+        sessionFactory.getCurrentSession().save(pet);
 
         Component mainComponent = new ComponentBuilder()
                 .setName("Empowered Bracer")
@@ -84,11 +104,13 @@ public class GuideBuilderTest {
                 .setComment("Some comment")
                 .addElement(item)
                 .addElement(item)
+                .setPosition(1)
                 .build();
 
         SkillOrder skillOrder = (SkillOrder) new SkillOrderBuilder()
                 .setTitle("Main skillorder")
                 .setComment("Some other comment")
+                .setPosition(1)
                 .addElement(SkillSlot.FIRST)
                 .addElement(SkillSlot.FIRST)
                 .addElement(SkillSlot.FIRST)
@@ -105,7 +127,6 @@ public class GuideBuilderTest {
                 .addElement(SkillSlot.ULTI)
                 .addElement(SkillSlot.ULTI)
                 .build();
-
 
         Guide guide = new GuideBuilder()
                 .setTitle("Test Guide")
@@ -121,6 +142,10 @@ public class GuideBuilderTest {
                 .setUpvotes(10)
                 .setDownvotes(9)
                 .setViews(210)
+                .setActive(true)
+                .setPublished(true)
                 .build();
+
+        sessionFactory.getCurrentSession().save(guide);
     }
 }

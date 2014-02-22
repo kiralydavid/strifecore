@@ -35,6 +35,9 @@ public class User implements UserDetails {
     @OneToMany
     private List<CraftedItem> craftedItems;
 
+    @OneToMany
+    private List<Guide> guides;
+
     public Integer getId() {
         return id;
     }

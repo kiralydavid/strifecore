@@ -37,7 +37,7 @@ CREATE TABLE "public"."entity_order" (
 "title" varchar(100) COLLATE "default" NOT NULL,
 "comment" varchar(200) COLLATE "default" NOT NULL,
 "position" numeric(1) NOT NULL,
-"type" numeric(1) COLLATE "default" NOT NULL
+"type" numeric(1) NOT NULL
 )
 WITH (OIDS=FALSE);
 

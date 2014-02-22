@@ -9,6 +9,7 @@ public class ItemOrderBuilder {
     protected String comment;
     protected List<Item> elements;
     protected Integer position;
+    protected Guide guide;
 
     public ItemOrderBuilder() {
         this.elements = new LinkedList<>();
@@ -31,6 +32,11 @@ public class ItemOrderBuilder {
 
     public ItemOrderBuilder setPosition(Integer position) {
         this.position = position;
+        return this;
+    }
+
+    public ItemOrderBuilder setGuide(Guide guide) {
+        this.guide = guide;
         return this;
     }
 

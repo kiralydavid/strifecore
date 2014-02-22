@@ -18,6 +18,8 @@ public class GuideBuilder {
     private Integer upvotes;
     private Integer downvotes;
     private Integer views;
+    private Boolean active;
+    private Boolean published;
 
     public GuideBuilder() {
         this.itemOrders = new LinkedList<>();
@@ -95,7 +97,36 @@ public class GuideBuilder {
         return this;
     }
 
+    public GuideBuilder setActive(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public GuideBuilder setPublished(Boolean published) {
+        this.published = published;
+        return this;
+    }
+
     public Guide build() {
-        return new Guide(title, author, created, lastEdited, pet, hero, itemOrders, skillOrders, paragraphs, comments, upvotes, downvotes, views);
+
+        Guide guide = new Guide(title, author, created, lastEdited, pet, hero, itemOrders, skillOrders, paragraphs, comments, upvotes, downvotes, views, active, published);
+
+        for(SkillOrder skillOrder : guide.getSkillOrders()) {
+            skillOrder.setGuide(guide);
+        }
+
+        for(ItemOrder itemOrder : guide.getItemOrders()) {
+            itemOrder.setGuide(guide);
+        }
+
+        for(Comment comment : guide.getComments()) {
+            comment.setGuide(guide);
+        }
+
+        for(Paragraph paragraph : guide.getParagraphs()) {
+            paragraph.setGuide(guide);
+        }
+
+        return guide;
     }
 }

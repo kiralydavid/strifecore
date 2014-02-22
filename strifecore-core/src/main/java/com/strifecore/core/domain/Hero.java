@@ -3,6 +3,7 @@ package com.strifecore.core.domain;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.SortedSet;
 
 @Entity
@@ -15,6 +16,9 @@ public class Hero extends Character {
     @JoinColumn(name = "attribute_map")
     @JsonUnwrapped
     private AttributeMap attributes;
+
+    @OneToMany
+    private List<Guide> guides;
 
     protected Hero() {}
 

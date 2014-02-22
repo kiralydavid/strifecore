@@ -16,6 +16,10 @@ public class ItemOrder extends EntityOrder {
     @OrderColumn(name = "position")
     private List<Item> elements;
 
+    @ManyToOne
+    @JoinColumn(name = "guide")
+    protected Guide guide;
+
     protected ItemOrder(){}
 
     public ItemOrder(String title, String comment, List<Item> elements, Integer position) {
@@ -26,5 +30,9 @@ public class ItemOrder extends EntityOrder {
         if(elements.size() == 0) {
             throw new IllegalArgumentException("An item order musth have at least one element!");
         }
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 }

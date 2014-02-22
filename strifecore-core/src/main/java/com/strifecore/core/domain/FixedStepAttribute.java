@@ -13,7 +13,7 @@ public class FixedStepAttribute extends Attribute {
     @OneToMany
     private List<FixedStepAttributeValue> values;
 
-    protected FixedStepAttribute() {
+    public FixedStepAttribute() {
         values = new LinkedList<>();
     }
 

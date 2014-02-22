@@ -15,6 +15,10 @@ public class SkillOrder extends EntityOrder {
     @Column(name = "skill_slot")
     private List<SkillSlot> elements;
 
+    @ManyToOne
+    @JoinColumn(name = "guide")
+    protected Guide guide;
+
     protected SkillOrder(){}
 
     public SkillOrder(String title, String comment, List<SkillSlot> elements, Integer position) {
@@ -32,5 +36,9 @@ public class SkillOrder extends EntityOrder {
                 || Collections.frequency(elements, SkillSlot.ULTI) != 3) {
             throw new IllegalArgumentException("Invalid skill distribution!");
         }
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 }
