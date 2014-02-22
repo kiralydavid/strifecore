@@ -1,11 +1,26 @@
 package com.strifecore.core.domain;
 
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
-public class SkillOrder extends EntityOrder<SkillSlot> {
-    public SkillOrder(String title, String comment, List<SkillSlot> elements) {
-        super(title, comment, elements);
+@Entity
+@DiscriminatorValue("2")
+public class SkillOrder extends EntityOrder {
+
+    @ElementCollection(targetClass = SkillSlot.class)
+    @JoinTable(name = "skill_order_element", joinColumns = @JoinColumn(name = "entity_order"))
+    @OrderColumn(name = "position")
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "skill_slot")
+    private List<SkillSlot> elements;
+
+    protected SkillOrder(){}
+
+    public SkillOrder(String title, String comment, List<SkillSlot> elements, Integer position) {
+        super(title, comment, position);
+
+        this.elements = elements;
 
         if(elements.size() != 15) {
             throw new IllegalArgumentException("A skill order must have exactly 15 elements!");

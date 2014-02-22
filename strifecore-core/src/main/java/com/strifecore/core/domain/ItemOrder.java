@@ -1,10 +1,27 @@
 package com.strifecore.core.domain;
 
+import javax.persistence.*;
 import java.util.List;
 
-public class ItemOrder extends EntityOrder<Item> {
-    public ItemOrder(String title, String comment, List<Item> elements) {
-        super(title, comment, elements);
+@Entity
+@DiscriminatorValue("1")
+public class ItemOrder extends EntityOrder {
+
+    @OneToMany
+    @JoinTable(name = "item_order_element", joinColumns = {
+            @JoinColumn(name = "item")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "entity_order")
+    })
+    @OrderColumn(name = "position")
+    private List<Item> elements;
+
+    protected ItemOrder(){}
+
+    public ItemOrder(String title, String comment, List<Item> elements, Integer position) {
+        super(title, comment, position);
+
+        this.elements = elements;
 
         if(elements.size() == 0) {
             throw new IllegalArgumentException("An item order musth have at least one element!");

@@ -1,18 +1,28 @@
 package com.strifecore.core.domain;
 
-import java.util.List;
+import javax.persistence.*;
 
-public abstract class EntityOrder<T> {
+@Entity
+@Table(name = "entity_order")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+public abstract class EntityOrder {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
 
     protected String title;
 
     protected String comment;
 
-    protected List<T> elements;
+    protected Integer position;
 
-    public EntityOrder(String title, String comment, List<T> elements) {
+    protected EntityOrder(){}
+
+    public EntityOrder(String title, String comment, Integer position) {
         this.title = title;
         this.comment = comment;
-        this.elements = elements;
+        this.position = position;
     }
 }
