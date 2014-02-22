@@ -1,15 +1,17 @@
 package com.strifecore.core.domain;
 
-import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.util.SortedSet;
 
-public class Pet {
+@Entity
+@DiscriminatorValue("PET")
+public class Pet extends Character {
+    public static final Integer MAX_LEVEL = 9;
 
-    private String name;
+    protected Pet(){}
 
-    private List<Skill> skills;
-
-    public Pet(String name, List<Skill> skills) {
-        this.name = name;
-        this.skills = skills;
+    public Pet(String name, SortedSet<Skill> skills) {
+        super(name, skills);
     }
 }

@@ -22,8 +22,8 @@ public class Skill implements Comparable<Skill> {
     private SkillSlot slot;
 
     @ManyToOne
-    @JoinColumn(name = "hero")
-    private Hero hero;
+    @JoinColumn(name = "character")
+    private Character character;
 
     protected Skill() {}
 
@@ -32,10 +32,6 @@ public class Skill implements Comparable<Skill> {
         this.description = description;
         this.attributes = attributes;
         this.slot = slot;
-    }
-
-    public void setHero(Hero hero) {
-        this.hero = hero;
     }
 
     @Override
@@ -58,6 +54,10 @@ public class Skill implements Comparable<Skill> {
 
     public SkillSlot getSlot() {
         return slot;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     @Override

@@ -33,6 +33,7 @@ public class GuideBuilderTest {
                 .addSkill(new SkillBuilder()
                     .setName("Into the Shadows")
                     .addAttribute(AttributeName.COOLDOWN, new FixedStepAttribute().addValue(270D).addValue(180D).addValue(180D))
+                    .setSlot(SkillSlot.FIRST)
                     .build()
                 )
                 .build();

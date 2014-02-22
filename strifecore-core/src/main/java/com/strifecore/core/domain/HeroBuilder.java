@@ -31,9 +31,9 @@ public class HeroBuilder {
     }
 
     public Hero build() {
-        Hero hero = new Hero(name, attributes, skills);
+        Hero hero = new Hero(name, skills, attributes);
         for(Skill skill : skills) {
-            skill.setHero(hero);
+            skill.setCharacter(hero);
         }
         return hero;
     }

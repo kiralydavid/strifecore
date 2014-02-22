@@ -1,14 +1,14 @@
 package com.strifecore.core.domain;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class PetBuilder {
     private String name;
-    private List<Skill> skills;
+    private SortedSet<Skill> skills;
 
     public PetBuilder() {
-        this.skills = new LinkedList<>();
+        this.skills = new TreeSet<>();
     }
 
     public PetBuilder setName(String name) {
@@ -22,6 +22,10 @@ public class PetBuilder {
     }
 
     public Pet build() {
-        return new Pet(name, skills);
+        Pet pet = new Pet(name, skills);
+        for(Skill skill : skills) {
+            skill.setCharacter(pet);
+        }
+        return pet;
     }
 }
