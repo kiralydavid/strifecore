@@ -1,5 +1,7 @@
 package com.strifecore.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.strifecore.api.dto.LoginDto;
 import com.strifecore.core.security.AuthenticationDto;
 import com.strifecore.core.service.AuthenticationService;
 import org.junit.Before;
@@ -9,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -45,10 +48,17 @@ public class LoginControllerTest {
 
     @Test
     public void testLogin() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("TestUser");
+        loginDto.setPassword("1234567890");
+        byte[] loginDtoJson = objectMapper.writeValueAsBytes(loginDto);
+
         mockMvc.perform(
                     post("/login")
-                        .param("username", "TestUser")
-                        .param("password", "1234567890")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(loginDtoJson)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"name\":\"TestUser\",\"token\":\"TestUser:1000:123123123123\"}"));
@@ -56,10 +66,17 @@ public class LoginControllerTest {
 
     @Test
     public void testLoginWithWrongPassword() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("TestUser");
+        loginDto.setPassword("wrongpassword");
+        byte[] loginDtoJson = objectMapper.writeValueAsBytes(loginDto);
+
         mockMvc.perform(
                 post("/login")
-                        .param("username", "TestUser")
-                        .param("password", "wrongpassword")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(loginDtoJson)
         )
                 .andExpect(status().is(401))
                 .andExpect(content().string("Bad Credentials"));

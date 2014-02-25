@@ -1,14 +1,14 @@
 package com.strifecore.api.controller;
 
+import com.strifecore.api.dto.LoginDto;
 import com.strifecore.core.security.AuthenticationDto;
 import com.strifecore.core.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController {
 
@@ -17,14 +17,13 @@ public class LoginController {
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public @ResponseBody String exceptionHandler(){
+    public String exceptionHandler(){
         return "Bad Credentials";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody AuthenticationDto login(@RequestParam String username, @RequestParam String password) {
-        AuthenticationDto authenticationDto = authenticationService.authenticate(username, password);
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+    public AuthenticationDto login(@RequestBody LoginDto loginDto) {
+        AuthenticationDto authenticationDto = authenticationService.authenticate(loginDto.getUsername(), loginDto.getPassword());
         return authenticationDto;
     }
-
 }

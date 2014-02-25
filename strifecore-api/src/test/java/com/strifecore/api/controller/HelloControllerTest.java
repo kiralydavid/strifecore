@@ -3,6 +3,7 @@ package com.strifecore.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.strifecore.api.config.TestContext;
 import com.strifecore.api.config.WebContext;
+import com.strifecore.api.dto.LoginDto;
 import com.strifecore.core.config.RootContext;
 import com.strifecore.core.domain.User;
 import com.strifecore.core.security.AuthenticationDto;
@@ -16,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -84,13 +86,17 @@ public class HelloControllerTest extends AbstractTransactionalJUnit4SpringContex
 
         sessionFactory.getCurrentSession().save(user);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("TestUser");
+        loginDto.setPassword("password");
+        byte[] json = objectMapper.writeValueAsBytes(loginDto);
+
         MvcResult loginResult = mockMvc.perform(
                 post("/login")
-                .param("username", "TestUser")
-                .param("password", "password")
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         AuthenticationDto authenticationDto = objectMapper.readValue(loginResult.getResponse().getContentAsString(), AuthenticationDto.class);
 
