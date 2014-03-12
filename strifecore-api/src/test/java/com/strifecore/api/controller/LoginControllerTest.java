@@ -38,7 +38,7 @@ public class LoginControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        authenticationDto = new AuthenticationDto("TestUser", "TestUser:1000:123123123123");
+        authenticationDto = new AuthenticationDto("TestUser", "TestUser:1000:123123123123", false);
 
         when(authenticationService.authenticate("TestUser", "1234567890")).thenReturn(authenticationDto);
         when(authenticationService.authenticate("TestUser", "wrongpassword")).thenThrow(new BadCredentialsException(""));
@@ -61,7 +61,7 @@ public class LoginControllerTest {
                     .content(loginDtoJson)
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"name\":\"TestUser\",\"token\":\"TestUser:1000:123123123123\"}"));
+                .andExpect(content().string("{\"name\":\"TestUser\",\"token\":\"TestUser:1000:123123123123\",\"admin\":false}"));
     }
 
     @Test

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/hero")
 public class HeroController {
@@ -32,6 +34,11 @@ public class HeroController {
         }
 
         return hero;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Hero> getHeroList() {
+        return heroService.getAll();
     }
 
 }

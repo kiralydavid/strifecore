@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class HeroServiceImpl implements HeroService {
 
@@ -17,5 +19,11 @@ public class HeroServiceImpl implements HeroService {
     @Transactional
     public Hero getById(Integer id) {
         return heroRepository.read(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Hero> getAll() {
+        return heroRepository.readAll();
     }
 }

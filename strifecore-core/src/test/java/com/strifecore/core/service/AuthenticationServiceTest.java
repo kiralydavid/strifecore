@@ -50,7 +50,7 @@ public class AuthenticationServiceTest extends BaseTest {
 
         user = testEntityFactory.getUser();
         user.setPassword("1234567890");
-        mockDto = new AuthenticationDto("TestUser", "TestUser:1000:12312312312312");
+        mockDto = new AuthenticationDto("TestUser", "TestUser:1000:12312312312312", false);
 
         when(userDetailsService.loadUserByUsername("TestUser")).thenReturn(user);
 

@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class HeroRepositoryImpl implements HeroRepository {
 
@@ -25,6 +27,12 @@ public class HeroRepositoryImpl implements HeroRepository {
         criteria.add(Restrictions.eq("id", id));
 
         return (Hero)criteria.uniqueResult();
+    }
+
+    @Override
+    public List<Hero> readAll() {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Hero.class);
+        return criteria.list();
     }
 
 }
