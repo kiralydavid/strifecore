@@ -1,6 +1,7 @@
 package com.strifecore.api.config;
 
 import com.strifecore.api.security.AuthenticationTokenProcessingInterceptor;
+import com.strifecore.core.config.HibernateAwareObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ public class WebContext extends WebMvcConfigurerAdapter{
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(new HibernateAwareObjectMapper());
         return converter;
     }
 }

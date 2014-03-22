@@ -17,7 +17,7 @@ public abstract class Character {
 
     private String name;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "character")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "character", fetch = FetchType.EAGER)
     @Sort(type = SortType.NATURAL)
     private SortedSet<Skill> skills;
 

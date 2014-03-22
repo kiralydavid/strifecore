@@ -14,7 +14,7 @@ public class AttributeMap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(targetEntity = Attribute.class, mappedBy = "map", cascade=CascadeType.ALL)
+    @OneToMany(targetEntity = Attribute.class, mappedBy = "map", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "name")
     private Map<AttributeName, Attribute> attributes;

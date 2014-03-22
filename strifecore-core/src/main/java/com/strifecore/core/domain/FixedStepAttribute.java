@@ -1,8 +1,6 @@
 package com.strifecore.core.domain;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +8,7 @@ import java.util.List;
 @DiscriminatorValue("3")
 public class FixedStepAttribute extends Attribute {
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "attribute", fetch = FetchType.EAGER)
     private List<FixedStepAttributeValue> values;
 
     public FixedStepAttribute() {
@@ -18,7 +16,9 @@ public class FixedStepAttribute extends Attribute {
     }
 
     public FixedStepAttribute addValue(Double value) {
-        values.add(new FixedStepAttributeValue(value));
+        FixedStepAttributeValue valueObj = new FixedStepAttributeValue(value);
+        valueObj.setAttribute(this);
+        values.add(valueObj);
 
         return this;
     }
